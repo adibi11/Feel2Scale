@@ -1,0 +1,91 @@
+﻿@model Feel2Scale.Models.EmotionPrompt  
+@{  
+    ViewData["Title"] = "Feel2Scale - Home";  
+}  
+
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />  
+
+<style>
+    .info-box {
+        font-family: 'Rubik Mono One', sans-serif;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        flex: 1;
+        margin: 5px;
+        min-width: 150px;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-content {
+        font-size: 1rem;
+    }
+</style>
+
+<div class="container d-flex flex-column align-items-center justify-content-center mt-5" style="max-width: 700px;">  
+    <h2 class="text-center mb-4">🎧 מה אתה מרגיש היום?</h2>  
+
+    <form asp-controller="Emotion" asp-action="GetScale" method="post" class="w-100">  
+        <div class="form-group mb-3">  
+            <label for="UserEmotion" class="w-100 text-right">תיאור רגשי:</label>  
+            <textarea class="form-control text-right" id="UserEmotion" name="UserEmotion" rows="3" required></textarea>  
+        </div>  
+        <div class="text-right">  
+            <button type="submit" class="btn btn-dark">  
+                שלח <span class="ml-2">⟵</span>  
+            </button>  
+        </div>  
+    </form>  
+
+    <hr class="my-5 w-100" />  
+
+    @if (Model?.AiData != null && !string.IsNullOrEmpty(Model.AiData.Message))  
+    {  
+        <div id="ai-response-box" class="alert alert-info text-right w-100">  
+            <h5 class="text-right">🎼 תגובת ה-AI:</h5>  
+            <p>@Model.AiData.Message</p>  
+        </div>  
+
+        <div class="flex-container mt-4 w-100">
+            <div class="info-box">
+                <div class="section-title">סולם</div>
+                <div class="section-content">@Model.AiData.ScaleName</div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">אקורדים</div>
+                <div class="section-content">@string.Join(", ", Model.AiData.Chords ?? new List<string>())</div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">שלבי סולם</div>
+                <div class="section-content">@string.Join(", ", Model.AiData.Scale ?? new List<string>())</div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">כלים מתאימים</div>
+                <div class="section-content">@string.Join(", ", Model.AiData.Instruments ?? new List<string>())</div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">אפקטים</div>
+                <div class="section-content">@string.Join(", ", Model.AiData.Effects ?? new List<string>())</div>
+            </div>
+        </div>
+    }  
+    else  
+    {  
+        <div id="ai-response-box" class="alert alert-secondary text-center w-100">  
+            <em>המערכת מחכה לקלט...</em>  
+        </div>  
+    }  
+</div>  

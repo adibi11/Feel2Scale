@@ -1,0 +1,6 @@
+@Feel2Scale.API_HostAddress = http://localhost:5248
+
+GET {{Feel2Scale.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
