@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Feel2Scale.Configuration\Feel2Scale.Configuration.csproj" />
     <ProjectReference Include="..\Feel2Scale.Data\Feel2Scale.Data.csproj" />
     <ProjectReference Include="..\OpenAIApi\OpenAIApi.csproj" />
+
   </ItemGroup>
 
 </Project>

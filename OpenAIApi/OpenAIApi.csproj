@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Feel2Scale.Configuration\Feel2Scale.Configuration.csproj" />
     <ProjectReference Include="..\Feel2Scale.Data\Feel2Scale.Data.csproj" />
+
   </ItemGroup>
 
 </Project>

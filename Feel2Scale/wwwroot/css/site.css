@@ -29,3 +29,113 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+:root {
+    --bg: #0f1226;
+    --card: rgba(255,255,255,0.06);
+    --text: #f2f5ff;
+    --muted: #a5b0d6;
+    --brand: #6ea8fe;
+    --brand-2: #9d6efe;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* Glass navbar */
+.nav-glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    margin: 16px auto;
+    padding: .35rem .75rem;
+    box-shadow: var(--shadow);
+}
+
+/* Brand gradient */
+.brand-gradient {
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+/* Modern links */
+.nav-link-modern {
+    position: relative;
+    color: var(--text) !important;
+    opacity: .9;
+    transition: color .2s ease, opacity .2s ease;
+}
+
+    .nav-link-modern:hover,
+    .nav-link-modern:focus {
+        color: #fff !important;
+        opacity: 1;
+    }
+
+    .nav-link-modern::after {
+        content: "";
+        position: absolute;
+        left: .5rem;
+        right: .5rem;
+        bottom: .2rem;
+        height: 2px;
+        background: linear-gradient(90deg, var(--brand), var(--brand-2));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .2s ease;
+    }
+
+    .nav-link-modern:hover::after {
+        transform: scaleX(1);
+    }
+
+/* Chip badge (right side) */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .25rem .6rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(158,110,254,.18), rgba(110,168,254,.18));
+    border: 1px solid rgba(255,255,255,.12);
+    color: var(--muted);
+}
+
+/* Dropdown glass style */
+.dropdown-glass {
+    background: rgba(20,24,52,.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    padding: .25rem;
+}
+
+    .dropdown-glass .dropdown-item {
+        color: #e9edff;
+        border-radius: 8px;
+    }
+
+        .dropdown-glass .dropdown-item:hover {
+            background: linear-gradient(135deg, rgba(158,110,254,.18), rgba(110,168,254,.18));
+            color: #fff;
+        }
+
+/* Sticky shrink on scroll */
+.navbar.nav-glass {
+    transition: padding .2s ease, margin .2s ease, background .2s ease;
+}
+
+    .navbar.nav-glass.is-scrolled {
+        padding: .2rem .6rem;
+        margin: 8px auto;
+        background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+    }
+
+/* Optional: dark body to match */
+body {
+    background: radial-gradient(80rem 60rem at 20% -10%, #1b2048 0%, var(--bg) 45%), radial-gradient(60rem 40rem at 120% 20%, #241a3a 0%, var(--bg) 50%);
+}

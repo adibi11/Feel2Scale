@@ -1,91 +1,310 @@
-﻿@model Feel2Scale.Models.EmotionPrompt  
-@{  
-    ViewData["Title"] = "Feel2Scale - Home";  
-}  
+﻿@model Feel2Scale.Models.EmotionPrompt
+@{
+    ViewData["Title"] = "Feel2Scale - Home";
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />  
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
 <style>
-    .info-box {
-        font-family: 'Rubik Mono One', sans-serif;
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        flex: 1;
-        margin: 5px;
-        min-width: 150px;
+    :root {
+        --bg: #0f1226;
+        --bg-accent: #131736;
+        --card: rgba(255,255,255,0.06);
+        --text: #f2f5ff;
+        --muted: #a5b0d6;
+        --brand: #6ea8fe;
+        --brand-2: #9d6efe;
+        --success: #4bd081;
+        --danger: #ff6b6b;
+        --shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
 
-    .flex-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
+    body {
+        background: radial-gradient(80rem 60rem at 20% -10%, #1b2048 0%, var(--bg) 45%), radial-gradient(60rem 40rem at 120% 20%, #241a3a 0%, var(--bg) 50%);
+        color: var(--text);
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+        min-height: 100vh;
+    }
+
+    .app-shell {
+        max-width: 920px;
+        margin: 4rem auto;
+        padding: 1rem;
+    }
+
+    .glass-card {
+        background: var(--card);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+    }
+
+    .hero-title {
+        font-family: 'Rubik Mono One', sans-serif;
+        letter-spacing: 0.5px;
+        color: var(--text);
+        text-shadow: 0 2px 10px rgba(0,0,0,.35);
+    }
+
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .4rem .8rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(158,110,254,.18), rgba(110,168,254,.18));
+        border: 1px solid rgba(255,255,255,.12);
+        color: var(--muted);
+        font-size: .9rem;
+    }
+
+    .input-card {
+        padding: 1.25rem;
+    }
+
+    .btn-brand {
+        background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+        color: #0a0d1f;
+        border: none;
+        border-radius: 12px;
+        padding: .65rem 1rem;
+        font-weight: 700;
+        transition: transform .06s ease, filter .2s ease;
+    }
+
+        .btn-brand:disabled {
+            opacity: .7;
+            cursor: not-allowed;
+        }
+
+        .btn-brand:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn-brand:active {
+            transform: translateY(1px);
+        }
+
+    textarea.form-control {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        color: var(--text);
+        border-radius: 14px;
+    }
+
+        textarea.form-control:focus {
+            box-shadow: 0 0 0 .25rem rgba(110,168,254,.2);
+            border-color: rgba(110,168,254,.6);
+        }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+    }
+
+    .info-box {
+        font-family: 'Rubik Mono One', sans-serif;
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        padding: 16px;
+        border-radius: 16px;
+        text-align: center;
+        min-height: 120px;
+        border: 1px solid rgba(255,255,255,.08);
     }
 
     .section-title {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+        margin-bottom: .35rem;
+        color: var(--muted);
     }
 
     .section-content {
-        font-size: 1rem;
+        font-size: .98rem;
+        color: var(--text);
+        word-break: break-word;
+    }
+
+    .alert-modern {
+        background: rgba(110,168,254,.08);
+        border: 1px solid rgba(110,168,254,.2);
+        color: var(--text);
+        border-radius: 14px;
+    }
+
+    .fade-in {
+        animation: fadeIn .3s ease both;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .user-prompt {
+        background: rgba(255,255,255,.07);
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 12px;
+        padding: .75rem 1rem;
+        color: var(--text);
     }
 </style>
 
-<div class="container d-flex flex-column align-items-center justify-content-center mt-5" style="max-width: 700px;">  
-    <h2 class="text-center mb-4">🎧 מה אתה מרגיש היום?</h2>  
+<div class="app-shell">
+    <div class="glass-card p-4 mb-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h2 class="hero-title m-0">🎧 What's the vibe?</h2>
+            <span class="chip">Feel2Scale · Beta</span>
+        </div>
+        <p class="mb-0" style="color: var(--muted);">
+            Describe the track's mood and I'll suggest a scale, chords, instruments, and effects.
+        </p>
+    </div>
 
-    <form asp-controller="Emotion" asp-action="GetScale" method="post" class="w-100">  
-        <div class="form-group mb-3">  
-            <label for="UserEmotion" class="w-100 text-right">תיאור רגשי:</label>  
-            <textarea class="form-control text-right" id="UserEmotion" name="UserEmotion" rows="3" required></textarea>  
-        </div>  
-        <div class="text-right">  
-            <button type="submit" class="btn btn-dark">  
-                שלח <span class="ml-2">⟵</span>  
-            </button>  
-        </div>  
-    </form>  
-
-    <hr class="my-5 w-100" />  
-
-    @if (Model?.AiData != null && !string.IsNullOrEmpty(Model.AiData.Message))  
-    {  
-        <div id="ai-response-box" class="alert alert-info text-right w-100">  
-            <h5 class="text-right">🎼 תגובת ה-AI:</h5>  
-            <p>@Model.AiData.Message</p>  
-        </div>  
-
-        <div class="flex-container mt-4 w-100">
-            <div class="info-box">
-                <div class="section-title">סולם</div>
-                <div class="section-content">@Model.AiData.ScaleName</div>
-            </div>
-            <div class="info-box">
-                <div class="section-title">אקורדים</div>
-                <div class="section-content">@string.Join(", ", Model.AiData.Chords ?? new List<string>())</div>
-            </div>
-            <div class="info-box">
-                <div class="section-title">שלבי סולם</div>
-                <div class="section-content">@string.Join(", ", Model.AiData.Scale ?? new List<string>())</div>
-            </div>
-            <div class="info-box">
-                <div class="section-title">כלים מתאימים</div>
-                <div class="section-content">@string.Join(", ", Model.AiData.Instruments ?? new List<string>())</div>
-            </div>
-            <div class="info-box">
-                <div class="section-title">אפקטים</div>
-                <div class="section-content">@string.Join(", ", Model.AiData.Effects ?? new List<string>())</div>
+    <div class="glass-card input-card">
+        <div class="form-group mb-3">
+            <label for="UserEmotion" class="w-100 font-weight-bold" style="color: var(--muted);">Mood description:</label>
+            <textarea class="form-control" id="UserEmotion" name="UserEmotion" rows="3" required placeholder="e.g., dark, mysterious, groovy, a bit aggressive..."></textarea>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <small style="color: var(--muted);">Enter also submits ⏎</small>
+            <div>
+                <button type="button" class="btn btn-brand" id="submitBtn">
+                    Send <span class="ml-2">⟵</span>
+                </button>
             </div>
         </div>
-    }  
-    else  
-    {  
-        <div id="ai-response-box" class="alert alert-secondary text-center w-100">  
-            <em>המערכת מחכה לקלט...</em>  
-        </div>  
-    }  
-</div>  
+    </div>
+
+    <!-- Echo user's prompt above the AI result -->
+    <div id="userPromptEchoWrapper" class="mt-4 d-none">
+        <div class="glass-card p-3 fade-in">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <strong style="color: var(--muted);">Your last input:</strong>
+                <span class="badge badge-light" style="background: rgba(255,255,255,.12); color: var(--text);">Last input</span>
+            </div>
+            <div id="userPromptEcho" class="user-prompt"></div>
+        </div>
+    </div>
+
+    <div id="ai-response-box-after" class="alert alert-modern w-100 d-none fade-in mt-4">
+        <h5 class="mb-3">🎼 AI Response:</h5>
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="section-title">Scale</div>
+                <div class="section-content" id="scaleName"></div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">Chords</div>
+                <div class="section-content" id="scaleChords"></div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">Scale Degrees</div>
+                <div class="section-content" id="levels"></div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">Suggested Instruments</div>
+                <div class="section-content" id="instruments"></div>
+            </div>
+            <div class="info-box">
+                <div class="section-title">FX</div>
+                <div class="section-content" id="effects"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-response-box-before" class="alert alert-secondary text-center w-100 glass-card mt-4" style="background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: var(--muted);">
+        <em>Waiting for input…</em>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Keep a reusable copy of the user's last emotion text for later API/DB use
+    let lastUserEmotion = ""; // <-- reuse this variable to POST again to your DB endpoint later
+
+    $(document).ready(handlePrompt);
+
+    function handlePrompt() {
+        // Click handler (kept name exactly)
+        $("#submitBtn").on("click", function () {
+            submitEmotion();
+        });
+
+        // Submit with Enter inside the textarea (UX only; IDs & function names unchanged)
+        $("#UserEmotion").on("keydown", function (e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                submitEmotion();
+            }
+        });
+    }
+
+    function submitEmotion() {
+        const userEmotion = $("#UserEmotion").val().trim();
+        if (!userEmotion) {
+            alert("Please fill the field before sending.");
+            return;
+        }
+
+        // Save locally for later use
+        lastUserEmotion = userEmotion;
+        window.lastUserEmotion = lastUserEmotion; // optional global exposure
+
+        echoUserPrompt(lastUserEmotion);
+
+        // UI state
+        const $btn = $("#submitBtn");
+        const prevHtml = $btn.html();
+        $btn.prop("disabled", true).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Sending…');
+
+        $.ajax({
+            type: "POST",
+            url: "https://localhost:7002/api/Scale/analyze",
+            data: JSON.stringify({ message: userEmotion }),
+            contentType: "application/json",
+            success: function (response) {
+                SetScaleValues(response); // (kept function name exactly)
+            },
+            error: function (error) {
+                console.error("Error submitting emotion:", error);
+                alert("An error occurred while sending. Please try again.");
+            },
+            complete: function () {
+                $btn.prop("disabled", false).html(prevHtml);
+                $("#UserEmotion").val("");
+            }
+        });
+    }
+
+    function echoUserPrompt(text) {
+        $("#userPromptEcho").text(text || "");
+        $("#userPromptEchoWrapper").removeClass("d-none");
+    }
+
+    // Kept signature & behavior; only visuals changed
+    function SetScaleValues(data) {
+        if (data) {
+            $("#ai-response-box-after").removeClass("d-none");
+            $("#ai-response-box-before").addClass("d-none");
+
+            $("#scaleName").text(data.scaleName || "N/A");
+            $("#scaleChords").text(Array.isArray(data.chords) ? data.chords.join(", ") : (data.chords || "N/A"));
+            $("#levels").text(Array.isArray(data.scale) ? data.scale.join(", ") : (data.scale || "N/A"));
+            $("#instruments").text(Array.isArray(data.instruments) ? data.instruments.join(", ") : (data.instruments || "N/A"));
+            $("#effects").text(Array.isArray(data.effects) ? data.effects.join(", ") : (data.effects || "N/A"));
+        } else {
+            console.error("No data received to set scale values.");
+        }
+    }
+</script>

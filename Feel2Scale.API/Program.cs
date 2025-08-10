@@ -1,4 +1,4 @@
-using Feel2Scale.Configuration;
+﻿using Feel2Scale.Configuration;
 using Feel2Scale.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,9 +38,22 @@ namespace Feel2Scale.API
             }
             builder.Services.AddSingleton<OpenAIService>(new OpenAIService(openAiSettings));
             builder.Services.AddControllers();
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin() // אפשר להחליף לדומיין ספציפי
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
             var app = builder.Build();
+            //Add CORS policy to allow all origins, headers, and methods
+            //Should be later reconfigured to allow specific origins for security reasons
+           
 
+            app.UseCors("AllowAll");
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
